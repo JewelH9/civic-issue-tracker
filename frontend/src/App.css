@@ -47,8 +47,11 @@ body {
   gap: 8px;
 }
 
-.emblem {
-  font-size: 20px;
+.navbar-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 .navbar-links {

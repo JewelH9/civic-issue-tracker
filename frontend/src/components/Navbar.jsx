@@ -15,7 +15,12 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-brand">
-        <span className="emblem">🏛️</span> Civic Issue Tracker
+        <img
+          src="/favicon.jpg"
+          alt="Civic Issue Tracker logo"
+          className="navbar-logo"
+        />
+        Civic Issue Tracker
       </Link>
 
       <div className="navbar-links">
