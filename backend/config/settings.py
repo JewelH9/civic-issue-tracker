@@ -53,6 +53,7 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': config('CLOUDINARY_API_SECRET'),
 }
 
+# Django 6.1's preferred storage configuration format
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -61,6 +62,12 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+# django-cloudinary-storage's own collectstatic override hardcodes a check
+# against this legacy attribute directly, even on modern Django versions
+# that prefer STORAGES above. Both are kept in sync so the third-party
+# package's internal check doesn't crash with an AttributeError.
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,7 +150,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # Email
@@ -173,6 +181,3 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,   # a new refresh token is issued each time one is used — reduces replay risk
     'BLACKLIST_AFTER_ROTATION': True,
 }
-
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
